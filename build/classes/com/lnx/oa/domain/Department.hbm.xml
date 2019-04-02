@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ <hibernate-mapping>
+ 	<class name="com.lnx.oa.domain.Department" table="_department">
+	 	<id name="id">
+	 	<generator class="native"></generator>
+	 	</id>
+	 	<property name="name" length="35"></property>
+	 	<property name="description" length="128"></property>
+
+	 	<!-- 子部门和上级部门的多对一对应关系 -->
+		<many-to-one name="parent" class="com.lnx.oa.domain.Department" column="parentId"></many-to-one>
+	 	
+	 	<!-- 上级部门与下级部门一对多关系 -->
+		<set name="children">
+			<key column="parentId"></key>
+			<one-to-many class="com.lnx.oa.domain.Department"/>
+		</set>
+	 	<!-- 部门与用户一对多关系 -->
+		<set name="users">
+			<key column="departmentId"></key>
+			<one-to-many class="com.lnx.oa.domain.User"/>
+		</set>
+ 	</class>
+ 	
+ </hibernate-mapping>
+ 

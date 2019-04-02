@@ -1,0 +1,16 @@
+[2019-03-31 22:33:40,257][main][INFO][org.hibernate.Version:37] HHH000412: Hibernate Core {5.1.17.Final}
+[2019-03-31 22:33:40,260][main][INFO][org.hibernate.cfg.Environment:213] HHH000206: hibernate.properties not found
+[2019-03-31 22:33:40,262][main][INFO][org.hibernate.cfg.Environment:317] HHH000021: Bytecode provider name : javassist
+[2019-03-31 22:33:41,185][main][INFO][org.hibernate.annotations.common.Version:66] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[2019-03-31 22:33:41,495][main][INFO][org.hibernate.dialect.Dialect:156] HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+[2019-03-31 22:40:30,040][main][INFO][org.hibernate.Version:37] HHH000412: Hibernate Core {5.1.17.Final}
+[2019-03-31 22:40:30,047][main][INFO][org.hibernate.cfg.Environment:213] HHH000206: hibernate.properties not found
+[2019-03-31 22:40:30,048][main][INFO][org.hibernate.cfg.Environment:317] HHH000021: Bytecode provider name : javassist
+[2019-03-31 22:40:30,999][main][INFO][org.hibernate.annotations.common.Version:66] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[2019-03-31 22:40:31,302][main][INFO][org.hibernate.dialect.Dialect:156] HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+[2019-03-31 23:39:52,802][main][INFO][org.hibernate.Version:37] HHH000412: Hibernate Core {5.1.17.Final}
+[2019-03-31 23:39:52,804][main][INFO][org.hibernate.cfg.Environment:213] HHH000206: hibernate.properties not found
+[2019-03-31 23:39:52,806][main][INFO][org.hibernate.cfg.Environment:317] HHH000021: Bytecode provider name : javassist
+[2019-03-31 23:39:53,895][main][INFO][org.hibernate.annotations.common.Version:66] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[2019-03-31 23:39:54,343][main][INFO][org.hibernate.dialect.Dialect:156] HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+[2019-03-31 23:39:55,928][main][INFO][org.hibernate.hql.internal.QueryTranslatorFactoryInitiator:47] HHH000397: Using ASTQueryTranslatorFactory

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!-- action的名字访问时用的 -->
+  	<constant name="struts.devMode" value="true" />
+    <!-- 将对象工厂指定为spring -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <!-- 配置struts的action 访问后缀 -->
+    <constant name="struts.action.extension" value="do"/>
+    
+    <!-- 指定表单主题 -->
+    <constant name="struts.ui.theme" value="simple"></constant>
+    
+	<package name="default" namespace="/" extends="struts-default">
+		<default-action-ref name="index" />
+		<action	name="bookAction" class="bookAction"/>
+		
+		<!-- 岗位(角色)管理action -->
+		<action name="role_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/role/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="actionName">role_list</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="editUI">/WEB-INF/jsp/role/save.jsp</result>
+			<result name="addUI">/WEB-INF/jsp/role/save.jsp</result>
+		</action>
+    </package>
+
+
+</struts>
