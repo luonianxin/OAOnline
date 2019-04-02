@@ -29,6 +29,18 @@
 			<result name="editUI">/WEB-INF/jsp/role/save.jsp</result>
 			<result name="addUI">/WEB-INF/jsp/role/save.jsp</result>
 		</action>
+		
+		<!-- 部门管理Action -->
+		<action name="department_*" class="departmentAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/department/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="actionName">department_list</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="editUI">/WEB-INF/jsp/department/save.jsp</result>
+			<result name="addUI">/WEB-INF/jsp/department/save.jsp</result>
+				
+		</action>
     </package>
 
 
