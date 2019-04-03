@@ -13,7 +13,7 @@
 	 	<!--  岗位与用户多对多关系 -->
 	 	<set name="users" table="_user_role">
 	 		<key column="roleId"></key>
-	 		<many-to-many class="com.lnx.oa.domain.User" column="userId"></many-to-many>
+	 		<many-to-many class="com.lnx.oa.domain.User"  column="userId" ></many-to-many>
 	 	</set>
  	</class>
  	
