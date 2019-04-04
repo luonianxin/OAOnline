@@ -40,7 +40,7 @@
 					<td>${description}&nbsp;</td>
 					<td><s:a onClick="return window.confirm('确认删除当前记录吗？')" action="role_delete?id=%{ id }" namespace="/">删除</s:a>
 						<s:a action="role_editUI?id=%{ id }" namespace="/">修改</s:a>
-						<s:a href="setPrivilegeUI.html">设置权限</s:a>
+						<s:a action="role_setPrivilegeUI?id=%{ id }" namespace="/">设置权限</s:a>
 					</td>
 			</tr>
 			</s:iterator>
@@ -50,7 +50,7 @@
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <a href="${pageContext.request.contextPath}/role_addUI.do"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></a>
+            <s:a action="role_addUI.do" namespace="/"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import com.lnx.oa.service.IBookService;
 import com.lnx.oa.service.IDepartmentService;
+import com.lnx.oa.service.IPrivilegeService;
 import com.lnx.oa.service.IRoleService;
 import com.lnx.oa.service.IUserService;
 import com.opensymphony.xwork2.ActionContext;
@@ -28,6 +29,8 @@ public class BaseAction<T> extends  ActionSupport implements ModelDriven<T> {
 	protected IDepartmentService departmentService;
 	@Resource
 	protected IUserService userService;
+	@Resource
+	protected IPrivilegeService privilegeService;
 	
 	protected T model;
 	//model的类型也得获取，所以在构造方法中进行初始化model
