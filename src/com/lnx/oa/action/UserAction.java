@@ -41,6 +41,23 @@ public class UserAction extends BaseAction<User> {
 		this.roleIds = roleIds;
 	}
 	
+	
+	//用户登录
+	public String login() {
+		User user = userService.login(model);
+		if(user!=null) {
+			//登录成功就将用户信息写入session中
+			ServletActionContext.getRequest().getSession().setAttribute("loginUser", user);
+			
+			return "home";
+		}else {
+			//登录失败
+			//给出相应的提示
+			this.addActionError("用户名或密码错误！！！");
+			
+		}
+		return "loginUI";
+	}
 		//跳转到添加页面
 		public String addUI() {
 		//准备数据，用于回显(部门树列表，岗位列表)

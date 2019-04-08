@@ -52,7 +52,13 @@
 			</result>
 			<result name="addUI">/WEB-INF/jsp/user/save.jsp</result>
 			<result name="editUI">/WEB-INF/jsp/user/save.jsp</result>
-				
+			<result name="home">/WEB-INF/jsp/home/index.jsp</result>	
+			<result name="loginUI">/login.jsp</result>	
+		</action>
+		
+		<!-- 首页action -->
+		<action name="home_*" class="com.lnx.oa.action.HomeAction" method="{1}">
+			<result name="{1}">/WEB-INF/jsp/home/{1}.jsp</result>
 		</action>
     </package>
 

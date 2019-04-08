@@ -3,8 +3,10 @@ package com.lnx.oa.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.lnx.oa.dao.IUserDao;
 import com.lnx.oa.domain.User;
 import com.lnx.oa.service.IUserService;
@@ -48,5 +50,11 @@ public class UserServiceImpl implements IUserService {
 	public int findByLoginName(String loginName) {
 		
 		return userDao.findByLoginName(loginName);
+	}
+
+	//用户登录方法
+	public User login(User model) {
+		
+		return userDao.login(model);
 	} 
 }
