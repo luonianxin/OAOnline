@@ -15,9 +15,31 @@
     <!-- 指定表单主题 -->
     <constant name="struts.ui.theme" value="simple"></constant>
     
+   		
+	
 	<package name="default" namespace="/" extends="struts-default">
-		<default-action-ref name="index" />
+		
+		
+		<!-- 声明自定义的拦截器 -->
+		<interceptors>
+			<interceptor name="checkPrivilegeInteceptor" class="com.lnx.oa.interceptor.CheckPrivilegeInterceptor"></interceptor>
+			<!-- 定义自定义拦截器栈 -->
+			<interceptor-stack name="myInterceptor">
+				<interceptor-ref name="checkPrivilegeInteceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>		
+		</interceptors>
+		
+		<!--  指定默认拦截器栈 -->
+		<default-interceptor-ref name="myInterceptor"></default-interceptor-ref>
+		
+		<!-- <global-results>
+			<result name="loginUI" >/WEB-INF/login.jsp</result>
+			<result name="noPrivilegeUI" >/WEB-INF/noPrivilege.jsp</result>
+		</global-results>
+		 -->
 		<action	name="bookAction" class="bookAction"/>
+		
 		
 		<!-- 岗位(角色)管理action -->
 		<action name="role_*" class="roleAction" method="{1}">
@@ -29,6 +51,8 @@
 			<result name="addUI">/WEB-INF/jsp/role/save.jsp</result> 
 			 <result name="editUI">/WEB-INF/jsp/role/save.jsp</result>
 			<result name="setPrivilegeUI">/WEB-INF/jsp/role/setPrivilegeUI.jsp</result>
+			<result name="loginUI" >/WEB-INF/login.jsp</result>
+			<result name="noPrivilegeUI" >/WEB-INF/noPrivilege.jsp</result>
 		</action>
 		
 		<!-- 部门管理Action -->
@@ -40,7 +64,8 @@
 			</result>
 			<result name="editUI">/WEB-INF/jsp/department/save.jsp</result>
 			<result name="addUI">/WEB-INF/jsp/department/save.jsp</result>
-				
+			<result name="loginUI" >/WEB-INF/login.jsp</result>
+			<result name="noPrivilegeUI" >/WEB-INF/noPrivilege.jsp</result>	
 		</action>
 		
 		<!-- 用户管理Action -->
@@ -53,13 +78,53 @@
 			<result name="addUI">/WEB-INF/jsp/user/save.jsp</result>
 			<result name="editUI">/WEB-INF/jsp/user/save.jsp</result>
 			<result name="home">/WEB-INF/jsp/home/index.jsp</result>	
-			<result name="loginUI">/login.jsp</result>	
+			<result name="loginUI">/login.jsp</result>
+			<result name="noPrivilegeUI" >/WEB-INF/noPrivilege.jsp</result>	
 		</action>
 		
 		<!-- 首页action -->
 		<action name="home_*" class="com.lnx.oa.action.HomeAction" method="{1}">
 			<result name="{1}">/WEB-INF/jsp/home/{1}.jsp</result>
+			<result name="loginUI" >/WEB-INF/login.jsp</result>
+			<result name="noPrivilegeUI" >/WEB-INF/noPrivilege.jsp</result>
 		</action>
+		
+		<!-- 流程定义action -->
+		<action name="processDefinition_*"  class="com.lnx.oa.action.ProcessDefinitionAction"  method="{1}">
+			<result name="addUI">/WEB-INF/jsp/processDefinition/add.jsp</result>
+			<result name="list">/WEB-INF/jsp/processDefinition/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="actionName">processDefinition_list</param>
+				<param name="namespace">/</param>
+			</result>
+			
+			<result name="showImage" type="stream">
+				  <param name="contentType">image/jpeg</param>
+  				  <param name="inputName">inputStreamName</param>
+			</result>
+		</action>
+		
+		<!-- 模板管理ction -->
+		<action name="template_*"  class="com.lnx.oa.action.TemplateAction"  method="{1}">
+			<result name="addUI">/WEB-INF/jsp/template/save.jsp</result>
+			<result name="editUI">/WEB-INF/jsp/template/save.jsp</result>
+			<result name="list">/WEB-INF/jsp/template/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="actionName">template_list</param>
+				<param name="namespace">/</param>
+			</result>
+			
+			<result name="download" type="stream">
+  				  <param name="inputName">fileDownloadStream</param>
+  				  <param name="contentDisposition">attachment;filename="${fileName}"</param>
+			</result>
+		</action>
+		<!-- 流程管理Action -->
+		<action name="flow_*"  class="com.lnx.oa.action.FlowAction"  method="{1}">
+			<result name="templateList">/WEB-INF/jsp/flow/templateList.jsp</result>
+			<result name="submitUI">/WEB-INF/jsp/flow/submitUI.jsp</result>
+		</action>
+		
     </package>
 
 

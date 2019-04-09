@@ -3,11 +3,9 @@ package com.lnx.oa.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-import org.springframework.stereotype.Repository;
+import org.jbpm.api.ProcessEngine;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.lnx.oa.dao.IBookDao;
 import com.lnx.oa.domain.Book;
 import com.lnx.oa.service.IBookService;
@@ -17,7 +15,8 @@ public class BookServiceImpl implements IBookService {
 	@Resource
 	IBookDao bookDao ;
 
-
+	@Resource
+	ProcessEngine processEngine;
 
 	public void save(Book entity) {
 		bookDao.save(entity);
@@ -25,10 +24,10 @@ public class BookServiceImpl implements IBookService {
 	}
 
 	public void delete(Long id) {
+		System.out.println(processEngine);
 		bookDao.delete(id);
 	}
 	
-
 
 	public void update(Book entity) {
 		bookDao.update(entity);
@@ -41,8 +40,6 @@ public class BookServiceImpl implements IBookService {
 		return bookDao.findById(id);
 	}
 
-	
-	
 
 	public List<Book> findAll() {
 		

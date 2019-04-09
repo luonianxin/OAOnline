@@ -4,21 +4,29 @@
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
+  <!-- 解决延迟加载问题的过滤器 -->
   <filter>
     <filter-name>SpringOpenSessionInViewFilter</filter-name>
-    <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
+    <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>SpringOpenSessionInViewFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <!-- 指定spring配置文件的位置 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:beans.xml</param-value>
   </context-param>
+  <!-- 配置spring的上下文监听器，启动时自动加载spring -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <!-- 配置自定义监听器，在启动时查询权限数据 ，必须在spring监听器后面启动时按照先后顺序启动+-->
+  <listener>
+    <listener-class>com.lnx.oa.listener.MyInitListener</listener-class>
+  </listener>
+  <!-- 配置Struts2前端控制器 -->
   <filter>
     <filter-name>struts2</filter-name>
     <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>

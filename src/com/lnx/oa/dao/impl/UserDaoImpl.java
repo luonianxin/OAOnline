@@ -1,11 +1,9 @@
 package com.lnx.oa.dao.impl;
 
-
 import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-
 import com.lnx.oa.base.BaseDaoImpl;
 import com.lnx.oa.dao.IUserDao;
 import com.lnx.oa.domain.User;

@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lnx.oa.dao.IUserDao;
 import com.lnx.oa.domain.User;
 import com.lnx.oa.service.IUserService;
+import com.lnx.oa.utils.MD5Utils;
+
+
 
 @Service
 @Transactional
@@ -31,6 +34,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void save(User model) {
+		//新建用户时为用户设定初始密码
+		model.setPassword(MD5Utils.getMD5("123456"));
 		userDao.save(model);
 	}
 

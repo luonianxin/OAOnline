@@ -47,10 +47,17 @@
                 </s:iterator>
                 </td>
                 <td>${description}&nbsp;</td>
-                <td><s:a onClick="return window.confirm('您确定要删除该用户吗？')" action="user_delete?id=%{id}" namespace="/" >删除</s:a>
+                <td>
+                <s:if test="#session.loginUser.hasPrivilegeByName('用户删除' )">
+                <s:a onClick="return window.confirm('您确定要删除该用户吗？')" action="user_delete?id=%{id}" namespace="/" >删除</s:a>
+                 </s:if>
+                 <s:if test="#session.loginUser.hasPrivilegeByName('用户修改' )">   
                     <s:a action="user_editUI?id=%{id}" namespace="/">修改</s:a>
+				</s:if>
+				<s:if test="#session.loginUser.hasPrivilegeByName('用户初始化密码' ) ">	
 					<s:a action="user_initPassword?id=%{id}" namespace="/" onClick="return window.confirm('您确定要初始化密码为123456吗？')">初始化密码</s:a>
-                </td>
+                </s:if> 
+                            </td>
             </tr>
             </s:iterator>
            

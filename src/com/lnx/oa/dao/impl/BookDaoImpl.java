@@ -1,9 +1,5 @@
 package com.lnx.oa.dao.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Repository;
 
 import com.lnx.oa.base.BaseDaoImpl;

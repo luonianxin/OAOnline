@@ -34,7 +34,7 @@
        </bean>
 	
 	<!-- 建立本地sessionFactory bean -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<!-- 注入hibernate属性 配置方言，是否打印ddl、sql语句等 -->
 		<property name="hibernateProperties">
@@ -51,10 +51,17 @@
 				<value>classpath:com/lnx/oa/domain</value>
 			</list>
 		</property>
+		
+		<!-- 读取jbpm jar包中的映射文件 -->
+		<property name="mappingJarLocations">
+			<list>
+				<value>/WEB-INF/lib/jbpm.jar</value>
+			</list>
+		</property>
 	</bean>
 	
 	<!-- 配置hibernate事务管理器 -->
-	<bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
@@ -64,8 +71,15 @@
 	<!-- 对所有组件进行扫描 -->
 	
 	<context:component-scan base-package="com.lnx.oa"></context:component-scan>
-
 	
 	<!-- 提供注解的驱动 -->
 	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<!-- 将jbpm与spring框架整合的核心类 -->
+	<bean id="springHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper">
+		<!-- 指定jbpm的核心配置文件 -->
+		<property name="jbpmCfg" value="jbpm.cfg.xml"> </property>
+	</bean>
+	<!-- 配置processEngine对象 -->
+	<bean id="processEngine" factory-bean="springHelper" factory-method="createProcessEngine"></bean>
 </beans>

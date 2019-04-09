@@ -15,7 +15,8 @@ import com.lnx.oa.domain.Role;
 import com.lnx.oa.domain.User;
 import com.lnx.oa.utils.DepartmentUtils;
 import com.lnx.oa.utils.MD5Utils;
-import com.opensymphony.xwork2.ActionContext;
+
+
 
 @Controller
 @Scope("prototype")
@@ -58,8 +59,18 @@ public class UserAction extends BaseAction<User> {
 		}
 		return "loginUI";
 	}
-		//跳转到添加页面
-		public String addUI() {
+	
+	//用户退出
+	public String logout() {
+		//从session中清除登录用户信息
+		ServletActionContext.getRequest().getSession().removeAttribute("loginUser");
+		//跳转到登录界面	
+		return "loginUI";
+	}
+	
+	
+	//跳转到添加页面
+	public String addUI() {
 		//准备数据，用于回显(部门树列表，岗位列表)
 			List<Department> topList = departmentService.findTopList();		
 			List<Department> treeList = DepartmentUtils.getTreeList(topList, null);

@@ -17,7 +17,7 @@
 	 	</set>
 	 	
 	 	<!--  角色和权限的多对多关系 --> 
-	 	<set name="privileges" table="_role_privilege">
+	 	<set name="privileges" table="_role_privilege" lazy="false">
 	 		<key column="roleId"></key>
 	 		<many-to-many class="com.lnx.oa.domain.Privilege" column="privilegeId"></many-to-many>
 	 	</set>

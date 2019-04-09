@@ -20,7 +20,7 @@
 		<many-to-one name="department"  class="com.lnx.oa.domain.Department" column="departmentId"></many-to-one>
 		
 		<!-- 用户和岗位(角色)多对多关系 -->
-		<set name="roles" table="_user_role">
+		<set name="roles" table="_user_role" lazy="false">
 			<key column="userId" ></key>
 			<many-to-many class="com.lnx.oa.domain.Role" column="roleId"></many-to-many>
 		</set>	
