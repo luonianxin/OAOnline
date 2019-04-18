@@ -1,97 +1,104 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" session="false" %>
-	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 <title>登录</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet"  href="${pageContext.request.contextPath}/bootstrap-3.3.7/css/bootstrap.min.css"/>
-	
-<script src="${pageContext.request.contextPath}/bootstrap3.3.7/js/jquery-2.1.0.js"  type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/bootstrap-3.3.7/js/bootstrap.min.js"  type="text/javascript"></script>
+<link rel="stylesheet"  href="${pageContext.request.contextPath}//bootstrap3.3.7/css/bootstrap.min.css"/>
 
-<%@ page import="java.io.*,java.util.*, javax.servlet.*,java.text.*" %>
-  
-      
- <style type="text/css">
-   input{
-	margin-left: 15px;      				
-     }
-#logReg{
-  width: 330px;
-  height: 300px ; 
-  background-color: white ;
-  margin-left: 60% ;
-  margin-top: 12%;
+
+<link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}//bootstrap3.3.7/css/bootstrap.min.css'>
+<style>
+      #fullBg {
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  background: url("https://31.media.tumblr.com/3b08b64bfe69d670c91c03a5e2fd42b6/tumblr_mv5lnjrRQ51qfj2dqo1_1280.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
-      	</style>	
-</head>
 
-<body style="background-color: gray;background-image: url('${pageContext.request.contextPath}/img/background.png');overflow:hidden">
-	
-		
+.form-signin {
+  max-width: 280px;
+  margin: 60px auto 10px;
+}
+.form-signin .form-signin-heading {
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0px 1px 2px #111;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
+  border-radius: 6px 6px 0px 0px;
+}
+.form-signin input[type="text"]:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.form-signin input[type="password"] {
+  z-index: 2;
+  margin-bottom: 20px;
+  border-top: none;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
+  border-radius: 0px 0px 6px 6px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 1px 0px 0px rgba(255, 255, 255, 0.5);
+}
+.form-signin input[type="password"]:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 1px 0px 0px rgba(255, 255, 255, 0.5);
+}
+.form-signin .btn {
+  font-weight: bold;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);
+}
 
-<div id="logReg" >
-	<!-- 选项卡菜单-->
-	<ul id="LogInTab" class="nav nav-tabs" role="tablist" style="float: none;text-align: center">
-	    <!-- <li class="active" style="width: 50%;height: 25px"><a href="#login" role="tab" data-toggle="tab" >
-	    <font style="font-size: 18px"><b>登录</b></font></a></li> -->
-	</ul>
-	
-	<!-- 选项卡面板 -->
-	<div id="logInTabContent" class="tab-content" >
-	    <div class="tab-pane active" id="login">
-			<form role="form" name="logform" action="<%=request.getContextPath() %>/logInOut/LogCheck.jsp" onsubmit=" return checkdata()"method="post">
-				  <div class="form-group">
-				    <input type="text" class="form-control" id="logusername" name="logusername" placeholder="请输入用户名" 
-				    style="margin-top: 25px;height:42px;width:300px;">
-				    <input type="password" class="form-control" id="logpassword" name="logpassword" placeholder="请输入密码" 
-				    style="margin-top: 5px;height: 42px ;width:300px;">
-				     <span id="error" style="margin-left: 15px;margin-top: 5px"></span>
-				  </div>
-					
-  					<input type="submit" class="btn btn-default" value="登&nbsp;&nbsp;&nbsp;&nbsp;陆"  style="width:70%;height:25px ;border:none; center; font-size:18px; margin-left: 55px;margin-top:25px;background-color: orange;;color: white"/>
-  					
-			</form>
-		</div>
-		</div>
-	</div>
+p.sign-up {
+  text-shadow: 0px 1px 2px #222;
+  color: #fff;
+  font-size: 12px;
+}
 
+    </style>
 <script>
-	function checkdata(){
-		if(logform.logusername.value!=''&&logform.logpassword.value!=''){
-			return true ;
-		}
-		else if(logform.logusername.value==''){
-			document.getElementById('error').innerHTML="<font style='color: red;font-size: 18px' >请输入用户名！ </font>";	
-			logform.logusername.focus();
-			return false;
-		}
-		else if(logform.logpassword.value==''){
-			document.getElementById('error').innerHTML="<font style='color: red;font-size: 18px' >请输入密码！ </font>";	
-			logform.logpassword.focus();
-			return false;
-		}
-	}
-	
-	
-	function checksame(){
-		debugger;
-		if(regform.regpassword.value ==regform.regconfirmpwd.value){
-				document.getElementById('hinter').innerHTML="";
-				return true;
-		}else{
-		
-				document.getElementById('hinter').innerHTML="<font style='color: red;font-size: 18px' >两次密码输入不一致，请重新输入! </font>";
-				regform.regpassword.value="";
-				regform.regconfirmpwd.value="";
-				regform.regpassword.focus();
-				return false;
-		}
-	}
-	
+  window.console = window.console || function(t) {};
 </script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<div id="fullBg" >
+<div class="container">
+<form id="user_login" name="loginform" action="${pageContext.request.contextPath}//user_login.do" method="post" class="form-signin">
+<h1 class="form-signin-heading">请登录</h1>
+<input type="text" class="form-control" name="loginName" placeholder="请输入用户名:" required="" autofocus="" />
+<input type="password" class="form-control" name="password" placeholder="请输入密码:" required="" />
+<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+</form>
+</div>
+<!-- <p class="text-center sign-up"><strong>Sign up</strong> for a new account</p> -->
+</div>
+
+<script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
 </body>
 </html>

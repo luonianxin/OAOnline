@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 
 import javax.annotation.Resource;
 
+import com.lnx.oa.service.IApproveInfoService;
 import com.lnx.oa.service.IBookService;
 import com.lnx.oa.service.IDepartmentService;
 import com.lnx.oa.service.IPrivilegeService;
@@ -34,6 +35,8 @@ public class BaseAction<T> extends  ActionSupport implements ModelDriven<T> {
 	protected IPrivilegeService privilegeService;
 	@Resource
 	protected ITemplateService templateService;
+	@Resource
+	protected IApproveInfoService approveInfoService;
 	
 	protected T model;
 	//model的类型也得获取，所以在构造方法中进行初始化model

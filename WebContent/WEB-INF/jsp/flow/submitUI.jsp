@@ -24,6 +24,8 @@
 <!--显示表单内容-->
 <div id=MainArea>
     <s:form action="flow_submit" namespace="/" method="post" enctype="multipart/form-data">
+       
+       <s:hidden name="templateId"></s:hidden>
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
         	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 下载文档模板 </div> 
         </div>

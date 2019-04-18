@@ -9,7 +9,7 @@
     <script type="text/javascript">
 	     function showProcessImage(id){
             var url = '${pageContext.request.contextPath}/processDefinition_showImage.do?id='+id; // 流程id;
-             window.open(url,"", "dialogHeight:400;dialogWidth:500;dialogLeft:500;dialogTop:200");
+             window.open(url,"", "width=600,height=500,left=400,top=100");
             
         }
     </script> 

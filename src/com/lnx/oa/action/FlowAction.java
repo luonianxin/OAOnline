@@ -2,6 +2,7 @@ package com.lnx.oa.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,10 +16,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.lnx.oa.domain.Application;
+import com.lnx.oa.domain.ApproveInfo;
+import com.lnx.oa.domain.PageBean;
+import com.lnx.oa.domain.TaskView;
 import com.lnx.oa.domain.Template;
 import com.lnx.oa.domain.User;
+import com.lnx.oa.service.IAppcalicationService;
+import com.lnx.oa.service.IApproveInfoService;
 import com.lnx.oa.service.IFlowService;
 import com.lnx.oa.service.ITemplateService;
+import com.lnx.oa.utils.HQLHelper;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -30,17 +37,36 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope("prototype")
 public class FlowAction extends ActionSupport {
+
+	
+	private static final long serialVersionUID = 1L;
 	private Long templateId;//属性驱动，模板id
-	private File resource;
+	private File resource;	//用于文件上传
+	private String status;	//申请状态
+	private int currentPage = 1;	//当前页码
+	private Long applicationId;	//属性驱动，申请的id
+	private InputStream fileDownloadInputStream;	//用于文件下载的输入流
+	private String fileName;	//下载用的文件名
+	private String taskId;	//任务id
+	private Boolean approval;	//区分审批是否通过	
+	private String comment;	//审批意见
+	
 	@Resource
 	private ITemplateService templateService;
+	
 	@Resource
 	private IFlowService flowService;
 	
+	@Resource
+	private IAppcalicationService applicationService;
+	
+	@Resource
+	private IApproveInfoService approveInfoService; 
 	/**
 	 * 起草申请（模板列表）
 	 */
 	public String templateList(){
+		//准备模板数据
 		List<Template> list = templateService.findAll();
 		ActionContext.getContext().getValueStack().set("list", list);
 		return "templateList";
@@ -81,7 +107,30 @@ public class FlowAction extends ActionSupport {
 	 * 我的申请查询列表
 	 */
 	public String myApplicationList(){
-		
+		//准备数据--模板列表
+		List<Template> list = templateService.findAll();
+		ActionContext.getContext().getValueStack().set("templateList", list);
+				
+		//查询分页数据---我的申请
+		HQLHelper hh = new HQLHelper(Application.class);
+		//查询当前登录人的申请记录
+		hh.addWhere("o.applicant = ?", getCurrentUser());
+				
+		if(templateId != null){
+			//按照模板检索
+			hh.addWhere("o.template.id = ?", templateId);
+		}
+		if(status != null && status.trim().length() > 0){
+			//按照申请状态检索
+			hh.addWhere("o.status = ?", status);
+		}
+				
+		//添加排序---按照申请时间降序
+		hh.addOrderBy("o.applyTime", false);
+				
+		PageBean pb = applicationService.getPageBean(hh,currentPage);
+			
+		ActionContext.getContext().getValueStack().push(pb);
 		
 		return "myApplicationList";
 	}
@@ -90,24 +139,39 @@ public class FlowAction extends ActionSupport {
 	 *  查看申请信息（下载申请文件）
 	 */
 	public String download(){
-		
+		//根据id获取对应的输入流
+		fileDownloadInputStream = applicationService.getInputStreamById(applicationId);
+		//获取获取对应申请信息
+		Application app = applicationService.getById(applicationId);
+		//文件默认名为申请的标题
+		fileName = app.getTitle() + ".doc";
+		//获取客户端浏览器类型
+		String agent = ServletActionContext.getRequest().getHeader("user-agent");
+		try {
+			//解决名字乱码的问题
+			fileName = this.encodeDownloadFilename(fileName, agent);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "download";
 	}
 	
 	/**
-	 * 查看流转记录（审批信息）
+	 * 查看流转记录（历史审批信息）
 	 */
 	public String historyApprovedList(){
-		
-		
-		return "historyApprovedList";
+		//根据申请id，使用HQL查询审批信息列表
+		List<ApproveInfo> list = approveInfoService.findApproveInfoListByApplicationId(applicationId);
+		ActionContext.getContext().getValueStack().set("list", list);
+			return "historyApprovedList";
 	}
 	
 	/**
 	 * 待我审批（我的任务列表）
 	 */
 	public String myTaskList(){
-		
+		List<TaskView> list = flowService.findTaskList(getCurrentUser());
+		ActionContext.getContext().getValueStack().set("myTaskList", list);
 		return "myTaskList";
 	}
 	
@@ -122,7 +186,17 @@ public class FlowAction extends ActionSupport {
 	 * 审批处理
 	 */
 	public String approve(){
+		Application application = applicationService.getById(applicationId);
 		
+		//保存一个审批实体
+		ApproveInfo ai = new ApproveInfo();
+		ai.setApplication(application);//设置当前审批关联的申请
+		ai.setApproval(approval);//是否通过
+		ai.setApprover(getCurrentUser());//审批人
+		ai.setApproveTime(new Date());//审批时间
+		ai.setComment(getComment());//审批意见
+		
+		flowService.approve(ai,taskId);
 		
 		return "toMyTaskList";
 	}
@@ -135,8 +209,9 @@ public class FlowAction extends ActionSupport {
 	 * @return
 	 */
 	public String uploadFile(File file){
-		String realPath = ServletActionContext.getServletContext().getRealPath("/WEB-INF/uploadFiles");
-		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/");
+		//解决文件丢失问题，采用绝对路径
+		String realPath = "D:\\server\\Tomcat8.5\\uploadFiles";
+		SimpleDateFormat sdf = new SimpleDateFormat("\\yyyy\\MM\\dd\\");
 		String dateStr = sdf.format(new Date());
 		dateStr = realPath + dateStr;
 		File dateFile = new File(dateStr);
@@ -166,8 +241,7 @@ public class FlowAction extends ActionSupport {
 	 * @throws IOException
 	 */
 	public String encodeDownloadFilename(String filename, String agent) throws IOException{
-		 // IE及其他浏览器
-		
+		 // IE及其他浏览器，暂时不支持火狐浏览器
 		return URLEncoder.encode(filename,"utf-8");
 	}
 
@@ -185,6 +259,88 @@ public class FlowAction extends ActionSupport {
 
 	public void setResource(File resource) {
 		this.resource = resource;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public Long getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(Long applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+
+	public Boolean getApproval() {
+		return approval;
+	}
+
+	public void setApproval(Boolean approval) {
+		this.approval = approval;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public IFlowService getFlowService() {
+		return flowService;
+	}
+
+	public void setFlowService(IFlowService flowService) {
+		this.flowService = flowService;
+	}
+
+	public IAppcalicationService getApplicationService() {
+		return applicationService;
+	}
+
+	public void setApplicationService(IAppcalicationService applicationService) {
+		this.applicationService = applicationService;
+	}
+
+	public InputStream getFileDownloadInputStream() {
+		return fileDownloadInputStream;
+	}
+
+	public void setFileDownloadInputStream(InputStream fileDownloadInputStream) {
+		this.fileDownloadInputStream = fileDownloadInputStream;
 	}
 
 

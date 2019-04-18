@@ -1,14 +1,20 @@
 package com.lnx.oa.base;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import com.lnx.oa.domain.PageBean;
+import com.lnx.oa.utils.HQLHelper;
 
 
 
@@ -75,7 +81,67 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 		return	sessionFactory.getCurrentSession();
 	}
 
-	
 
+	/**
+	 * 公共分页
+	 */
+	public PageBean getPageBean(HQLHelper hh, int currentPage) {
+		int pageSize = getPageSize();
+		int firstResult = (currentPage - 1) * pageSize;
+		String listHQL = hh.getListHQL();
+		String countHQL = hh.getCountHQL();
+		List<Object> args = hh.getArgs();
+		Query query = this.getSession().createQuery(listHQL);
+		if(args != null && args.size() > 0){
+			int index = 0;
+			for(Object o : args){
+				query.setParameter(index++, o);
+			}
+		}
+		query.setFirstResult(firstResult);
+		query.setMaxResults(pageSize);
+		List recordList = query.list();
+		
+		query = this.getSession().createQuery(countHQL);
+		if(args != null && args.size() > 0){
+			int index = 0;
+			for(Object o : args){
+				query.setParameter(index++, o);
+			}
+		}
+		Long recordCount = (Long) query.uniqueResult();
+		
+		return new PageBean(currentPage, pageSize, recordCount.intValue(), recordList);
+	}
+
+	/**
+	 * 读取配置文件，获取pageSize
+	 * @return
+	 */
+	private int getPageSize() {
+		int pageSize = 10;
+		Properties pro = new Properties();
+		
+		InputStream in = this.getClass().getClassLoader().getResourceAsStream("page.properties");
+		try {
+			pro.load(in);
+			
+			String str = (String) pro.get("pageSize");
+			pageSize = Integer.parseInt(str);
+		} catch (IOException e) {
+			pageSize = 10;
+			e.printStackTrace();
+		}finally{
+			try {
+				if(in != null){
+					in.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return pageSize;
+	}
 
 }

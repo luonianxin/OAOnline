@@ -147,7 +147,7 @@ public class TemplateAction extends BaseAction<Template> {
 	public String uploadFile(File file) {
 		
 		//为了区分文件,以上传日期将文件进行分类整理
-		String realPath = ServletActionContext.getServletContext().getRealPath("/uploadFiles");
+		String realPath = "D:\\server\\Tomcat8.5\\uploadFiles";
 		SimpleDateFormat sdf = new SimpleDateFormat("\\yyyy\\MM\\dd\\");
 		String dateStr = sdf.format(new Date());
 		dateStr = realPath + dateStr;

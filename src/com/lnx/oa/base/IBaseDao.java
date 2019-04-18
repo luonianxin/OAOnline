@@ -2,6 +2,9 @@ package com.lnx.oa.base;
 
 import java.util.List;
 
+import com.lnx.oa.domain.PageBean;
+import com.lnx.oa.utils.HQLHelper;
+
 
 
 /**
@@ -45,4 +48,10 @@ public interface IBaseDao<T> {
 	 * 查询所有信息
 	 */
 	public List<T> findAll();
+	
+	/*
+	 * 	根据页码查询页面信息.
+	 * 
+	 */
+	public PageBean getPageBean(HQLHelper hh, int currentPage);
 } 

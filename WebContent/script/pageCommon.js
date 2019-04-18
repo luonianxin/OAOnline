@@ -301,7 +301,7 @@ function inputAreaBlur(inputElement, showText) {
 $(function(){
 	
 	// 让主窗口的title与当前操作的（右侧的）窗口的title一致
-	parent.document.title = "Itcast OA - " + document.title;
+	parent.document.title = document.title;
 	
 //	// 在文本框中显示提示语，提示语由 showText 属性指定
 //	$("input[type=text][showText]").each(function(){
