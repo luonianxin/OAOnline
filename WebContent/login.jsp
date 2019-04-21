@@ -9,8 +9,7 @@
 <link rel="stylesheet"  href="${pageContext.request.contextPath}/bootstrap-3.3.7/css/bootstrap.min.css"/>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/bootstrap-3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/bootstrap3.3.7/css/bootstrap.min.css'>
 <style>
       #fullBg {
   z-index: -1;
@@ -18,8 +17,16 @@
   width: 100%;
   position: absolute;
   top: 0px;
-  background: url("https://31.media.tumblr.com/3b08b64bfe69d670c91c03a5e2fd42b6/tumblr_mv5lnjrRQ51qfj2dqo1_1280.jpg") no-repeat center center fixed;
+  background: url("${pageContext.request.contextPath}/img/timg.png"); no-repeat ;center ;centerfixed;
   background-size: cover;
+}
+
+  #title {
+  font-style: inherit;
+  font-family: fantasy;
+  font-size: 35px;
+  color: #fff;
+  margin-left: 500px;
 }
 
 .form-signin {
@@ -44,6 +51,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  
 }
 .form-signin input[type="text"] {
   margin-bottom: -1px;
@@ -90,17 +98,21 @@ p.sign-up {
 </script>
 </head>
 <body translate="no">
-<div id="fullBg" />
+<div id="fullBg" >
+<div id="title">基于宏兴爆破公司的自动化办公系统</div>
 <div class="container">
 <s:form class="form-signin" name="loginform" action="user_login" namespace="/" >
+
 <h1 class="form-signin-heading">请登录</h1>
+<font color="red">
+		<s:actionerror />
+  </font>
 <input type="text" class="form-control" name="loginName" placeholder="请输入用户名:" required="" autofocus="" />
 <input type="password" class="form-control" name="password" placeholder="请输入密码:" required="" />
-<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+<button class="btn btn-lg btn-primary btn-block" type="submit">登&nbsp;陆</button>
 </s:form>
-<!-- <p class="text-center sign-up"><strong>Sign up</strong> for a new account</p> -->
 </div>
-
+</div>
 <script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
 </body>
 </html>

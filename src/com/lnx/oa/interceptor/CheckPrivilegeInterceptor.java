@@ -52,6 +52,8 @@ public class CheckPrivilegeInterceptor  extends AbstractInterceptor{
 		}
 		else {
 		//二、用户已登录
+			//每个用户都拥有的权限就不拦截
+			
 			@SuppressWarnings("unchecked")
 			List<String> allUrl = (List<String>) ServletActionContext.getServletContext().getAttribute("allUrl");
 			// 如果用户访问的是要验证的权限

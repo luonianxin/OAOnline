@@ -16,14 +16,14 @@
             <div onClick="menuClick(this)" class="level1Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/FUNC20001.gif" class="Icon" />个人办公</div>
             <ul style="display: none;" class="MenuLevel2">
                 <li class="level2">
-                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 个人考勤</div>
+                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 打卡签到</div>
                 </li>
                 <li class="level2">
-                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 日程安排</div>
+                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 备忘录</div>
                 </li>
-                <li class="level2">
+                <!-- <li class="level2">
                     <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 工作计划</div>
-                </li>
+                </li> -->
                
                 
             </ul>
@@ -41,11 +41,11 @@
         <li class="level1">
             <div onClick="menuClick(this);" class="level1Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/FUNC20077.gif" class="Icon" /> 个人设置</div>
             <ul style="display: none;" class="MenuLevel2">
-                <li class="level2">
+                <!-- <li class="level2">
                     <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> <s:a target="right" action="user_list">个人信息</s:a></div>
-                </li>
+                </li> -->
                 <li class="level2">
-                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> <s:a target="right" action="user_changepassword">密码修改</s:a></div>
+                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> <s:a target="right" action="user_editPasswdUI" namespace="/">密码修改</s:a></div>
                 </li>
 
             </ul>
