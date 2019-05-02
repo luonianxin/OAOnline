@@ -99,7 +99,7 @@ p.sign-up {
 </head>
 <body translate="no">
 <div id="fullBg" >
-<div id="title">基于宏兴爆破公司的自动化办公系统</div>
+<div id="title" style="margin-left: 15px;">宏兴爆破公司自动化办公系统</div>
 <div class="container">
 <s:form class="form-signin" name="loginform" action="user_login" namespace="/" >
 

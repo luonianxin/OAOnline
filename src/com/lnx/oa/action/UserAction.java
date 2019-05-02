@@ -26,8 +26,8 @@ public class UserAction extends BaseAction<User> {
 	private Long departmentId;	
 	private Long[] roleIds;
 	private String oldPassword;	//属性驱动 原密码
-	private String password;	//属性驱动 新密码
-	private String password2;	//属性驱动 确认新密码
+	private String newpassword ;	//属性驱动 新密码
+	private String newpassword2;	//属性驱动 确认新密码
 	
 		
 	public Long getDepartmentId() {
@@ -54,21 +54,7 @@ public class UserAction extends BaseAction<User> {
 		this.oldPassword = oldPassword;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPassword2() {
-		return password2;
-	}
-
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
+	
 	
 	//用户登录
 	public String login() {
@@ -243,18 +229,20 @@ public class UserAction extends BaseAction<User> {
 			User user = (User) ServletActionContext.getRequest().getSession().getAttribute("loginUser");
 				
 			if(user.getPassword().equals(MD5Utils.getMD5(oldPassword))) {
-				if(password.equals(password2)) {
-					user.setPassword(MD5Utils.getMD5(password));
-					userService.update(user);
+				if(newpassword!=null && newpassword2!=null) {
+					if(newpassword.equals(newpassword2)) {
+						user.setPassword(MD5Utils.getMD5(newpassword));
+						userService.update(user);
 					//登录成功返回成功页面
-					return "editSuccessUI";
-				}else {
-					//修改失败跳转回页面重新修改
-					return "editPasswdUI";
+							return "editSuccessUI";
+						}else {
+							//修改失败跳转到失败界面
+							return "editFailedUI";
+						}
 				}
 			}
-					//修改失败跳转回页面重新修改
-			return "editPasswdUI";
+					//修改失败跳转到失败界面
+			return "editFailedUI";
 			
 		}
 		
@@ -276,6 +264,22 @@ public class UserAction extends BaseAction<User> {
 				e.printStackTrace();
 			}
 			return NONE;
+		}
+
+		public String getNewpassword() {
+			return newpassword;
+		}
+
+		public void setNewpassword(String newpassword) {
+			this.newpassword = newpassword;
+		}
+
+		public String getNewpassword2() {
+			return newpassword2;
+		}
+
+		public void setNewpassword2(String newpassword2) {
+			this.newpassword2 = newpassword2;
 		}
 
 		

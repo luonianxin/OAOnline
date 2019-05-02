@@ -15,7 +15,7 @@
 	<div id="Head1">
 		<div id="Logo">
 			<a id="msgLink" href="javascript:void(0)"></a>
-            <font color="#0000CC" style="color:#F1F9FE; font-size:28px; font-family:Arial Black, Arial">基于宏兴爆破公司的OA办公自动化系统</font> 
+            <font color="#0000CC" style="color:#F1F9FE; font-size:28px; font-family:Arial Black, Arial">宏兴爆破公司办公系统</font> 
 			
         </div>
 		

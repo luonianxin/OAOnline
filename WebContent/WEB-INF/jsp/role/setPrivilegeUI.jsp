@@ -49,7 +49,7 @@
     <s:form action="role_setPrivileges" namespace="/" method="post">
     <s:hidden name="id"></s:hidden>
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
-        	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 正在为【部门经理】配置权限 </div> 
+        	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 正在为【${ name }】配置权限 </div> 
         </div>
         
         <!-- 表单内容显示 -->

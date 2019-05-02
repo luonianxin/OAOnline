@@ -54,7 +54,7 @@ public class FlowServiceImpl implements IFlowService{
 		TaskQuery query = processEngine.getTaskService().createTaskQuery();
 		query.processInstanceId(pi.getId());//获取当前流程实例下唯一的一个任务
 		Task task = query.uniqueResult();
-		
+		//启动审批任务
 		String taskId = task.getId();
 		processEngine.getTaskService().completeTask(taskId);
 		

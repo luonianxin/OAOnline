@@ -13,11 +13,11 @@
 <div id="Menu">
     <ul id="MenuUl">
         <li class="level1">
-            <div onClick="menuClick(this)" class="level1Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/FUNC20001.gif" class="Icon" />个人办公</div>
+            <div onClick="menuClick(this)" class="level1Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/FUNC20001.gif" class="Icon" />个人备忘录</div>
             <ul style="display: none;" class="MenuLevel2">
-                <li class="level2">
+                <%-- <li class="level2">
                     <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 打卡签到</div>
-                </li>
+                </li> --%>
                 <li class="level2">
                     <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> 备忘录</div>
                 </li>
@@ -32,7 +32,7 @@
             <div onClick="menuClick(this);" class="level1Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/FUNC20071.gif" class="Icon" style="margin-left: 1px"/> 项目查询</div>
             <ul style="display: none;" class="MenuLevel2">
                 <li class="level2">
-                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> <a target="right" href="Flow_ProcessDefinition/list.html">审批流程管理</a></div>
+                    <div class="level2Style"><img src="${pageContext.request.contextPath}/style/images/MenuIcon/menu_arrow_single.gif" /> <a target="right" href="#">项目查询</a></div>
                 </li>
 		
             </ul>

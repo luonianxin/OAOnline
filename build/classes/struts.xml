@@ -82,6 +82,7 @@
 			<result name="loginUI">/login.jsp</result>
 			<result name="noPrivilegeUI" >/WEB-INF/noPrivilege.jsp</result>	
 			<result name="editSuccessUI" >/WEB-INF/jsp/user/editSuccess.jsp</result>	
+			<result name="editFailedUI" >/WEB-INF/jsp/user/editFailed.jsp</result>	
 		</action>
 		
 		<!-- 首页action -->
