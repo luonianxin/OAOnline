@@ -103,7 +103,7 @@ p.sign-up {
 <div class="container">
 <s:form class="form-signin" name="loginform" action="user_login" namespace="/" >
 
-<h1 class="form-signin-heading">请登录</h1>
+<h1 class="form-signin-heading">请登录啊打发打发士大夫</h1>
 <font color="red">
 		<s:actionerror />
   </font>

@@ -1,0 +1,8 @@
+vim /etc/profile,在最后面加入以下三行
+export NODE_HOME=/opt/nodejs
+
+export PATH=$PATH:$NODE_HOME/bin 
+在bash.bashrc文件最后加入source /etc/profile,设置变量永久生效
+
+出现ls,su命令等不能使用时，可临时使用以下命令来设置变量，可能的状况是新加入的变量前面没有加上$PATH中间用冒号连接,严格注意大小写
+export PATH=/bin:/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/usr/bin
